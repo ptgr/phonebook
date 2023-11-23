@@ -1,0 +1,59 @@
+version: "3.4"
+
+services:
+  php:
+    container_name: PHP
+    build:
+      context: .
+      target: php_dev
+    restart: unless-stopped
+    volumes:
+      - php_socket:/var/run/php
+      - ./:/srv/app
+      - ./docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      - ./var/log:/srv/app/var/log
+    environment:
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  caddy:
+    container_name: Caddy
+    image: caddy:2-alpine
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile" ]
+    depends_on:
+      - php
+    restart: unless-stopped
+    volumes:
+      - php_socket:/var/run/php
+      - ./www:/srv/app/www:ro
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+  database:
+    container_name: Mysql
+    image: mysql:8.0-debian
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - database_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+  adminer:
+    container_name: Adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8086:8080
+
+volumes:
+  php_socket:
+  caddy_data:
+  caddy_config:
+  database_data:

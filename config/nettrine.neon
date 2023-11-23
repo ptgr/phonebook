@@ -1,0 +1,34 @@
+extensions:
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+
+	# Common
+	nettrine.annotations: Nettrine\Annotations\DI\AnnotationsExtension
+	nettrine.cache: Nettrine\Cache\DI\CacheExtension
+	nettrine.migrations: Nettrine\Migrations\DI\MigrationsExtension
+
+	# DBAL
+	nettrine.dbal: Nettrine\DBAL\DI\DbalExtension
+	nettrine.dbal.console: Nettrine\DBAL\DI\DbalConsoleExtension
+
+	# ORM
+	nettrine.orm: Nettrine\ORM\DI\OrmExtension
+	nettrine.orm.cache: Nettrine\ORM\DI\OrmCacheExtension
+	nettrine.orm.console: Nettrine\ORM\DI\OrmConsoleExtension
+	nettrine.orm.annotations: Nettrine\ORM\DI\OrmAnnotationsExtension
+
+nettrine.dbal:
+	connection:
+		driver: pdo_mysql
+		host: database
+		user: phonebook_user
+		password: test
+		dbname: db_phonebook
+		port: 3306
+
+nettrine.migrations:
+	directory: %appDir%/migrations
+
+nettrine.orm.annotations:
+	mapping: [
+		App\Model\Database: %appDir%/Model/Database
+	]

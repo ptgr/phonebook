@@ -1,12 +1,12 @@
 Simple example of phonebook.
 
-**INSTALLATION**
+# **INSTALLATION**
 1) Clone repository using `git clone https://github.com/ptgr/phonebook.git`
 2) Create copy of **.env.example** and rename it to **.env**
 3) Open terminal and change directory to phonebook
 4) Run `docker-compose up`
 
-**DATABASE ACCESS**   
+### **DATABASE ACCESS**   
 http://localhost:8086/
 
 System: *MySQL*  
@@ -15,9 +15,9 @@ User: *phonebook_user*
 Password: *y0r8Rv0HjshZCAi*  
 Database: *db_phonebook*
 
-**EXAMPLES**
+# **EXAMPLES**
 
-**GET ALL CONTACTS**
+### **GET ALL CONTACTS**
 
 SUPPORTED FILTER OPTION: number
 
@@ -60,7 +60,7 @@ RESPONSE
 ]
 ```
 
-**GET SPECIFIC CONTACT**
+### **GET SPECIFIC CONTACT**
 
 > GET http://localhost:80/api/v1/contacts/[id]
 
@@ -98,7 +98,7 @@ RESPONSE
 }
 ```
 
-**CREATE CONTACT**
+### **CREATE CONTACT**
 
 > POST http://localhost:80/api/v1/contacts/create
 
@@ -133,7 +133,41 @@ PAYLOAD JSON FORMAT
 ]
 ```
 
-**UPDATE CONTACT**
+CURL
+```
+curl  -X POST \
+  'http://localhost:80/api/v1/contacts/create' \
+  --header 'Accept: */*' \
+  --header 'Content-Type: application/json' \
+  --data-raw '[
+  {
+    "firstName": "Firstname",
+    "lastName": "Lastname",
+    "phoneNumbers": [
+      {
+        "type": "home",
+        "number": "721222333"
+      },
+      {
+        "type": "work",
+        "number": "+420601222333"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "city",
+        "value": "Prague"
+      },
+      {
+        "name": "street",
+        "value": "Ulice"
+      }
+    ]
+  }
+]'
+```
+
+### **UPDATE CONTACT**
 
 > PUT http://localhost:80/api/v1/contacts/update/[id]
 
@@ -164,4 +198,28 @@ PAYLOAD JSON FORMAT
     }
   ]
 }
+```
+
+CURL
+```
+curl  -X PUT \
+  'http://localhost:80/api/v1/contacts/update/[id]' \
+  --header 'Accept: */*' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "firstName": "name first",
+  "lastName": "name last",
+  "phoneNumbers": [
+    {
+      "type": "home",
+      "number": "721444666"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "city",
+      "value": "City"
+    }
+  ]
+}'
 ```

@@ -15,8 +15,11 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 
-		$router->withPath('api')
-			->addRoute('phonebook', 'Phonebook:getAll');
+		$router->withPath('api/v1')
+			->addRoute('contacts', 'Contact:index')
+			->addRoute('contacts/create', 'Contact:create')
+			->addRoute('contacts/update/<id>', 'Contact:update')
+			->addRoute('contacts/<id>', 'Contact:show');
 
 		return $router;
 	}

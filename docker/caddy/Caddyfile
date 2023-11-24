@@ -1,4 +1,4 @@
-ptgr.localhost:80 {
+localhost:80 {
     root * /srv/app/www
     encode zstd gzip
     file_server
@@ -6,7 +6,7 @@ ptgr.localhost:80 {
     tls internal
 }
 
-ptgr.localhost:443 {
+localhost:443 {
     root * /srv/app/www
     encode zstd gzip
     file_server

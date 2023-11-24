@@ -17,7 +17,6 @@
 		"nette/utils": "^3.2",
 		"latte/latte": "^2.11 || ^3.0",
 		"tracy/tracy": "^2.8",
-		"wodcz/nette-dotenv": "^2.0",
 		"nettrine/orm": "^0.8.4",
 		"nettrine/dbal": "^0.8.2",
 		"nettrine/cache": "^0.3.0",
